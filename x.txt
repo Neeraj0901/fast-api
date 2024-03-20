@@ -1,0 +1,184 @@
+Model - table fields
+repository - query realetd to db, elastic search (es)
+services - write logic here(type of view)
+api - write end points here
+representations - type fo serailizer
+helper and mail - supports
+subscriber - cron job function/ background job celery
+
+
+export POSTGRESQL_DATABASE_URI="postgresql://postgres:pwd@localhost:5432/vfc_dev" write top in stat.sh file 
+export POSTGRESQL_DATABASE_URI="postgresql://postgres:pwd@localhost:5432/vfc_dev"
+-------------------------------------------------------------------------------------------------------------------------------------------
+custom model manager = https://stackoverflow.com/questions/58622639/how-can-i-annotate
+prefetch and select related = https://buildatscale.tech/select_related-vs-prefetch_related/
+cronjob = 0 6  /usr/bin/env bash -c "cd /srv/etl/etl_services && source ../venv/bin/activate && python frontapp_analytics.py"0 6    
+
+/usr/bin/env bash -c "cd /srv/etl/etl_services && source ../venv/bin/activate && python asana_guest_review_or_complaint.py"
+15 /1    /usr/bin/env bash -c "(cd /srv/www/cod/ && source venv/bin/activate && python crontab/import_hostify_listings.py) >> /srv/www/cod/logs/cod-listings.log 2>&1"
+35 /6    /usr/bin/env bash -c "(cd /srv/www/cod/ && source venv/bin/activate && python crontab/import_hostify_calendar.py) >> /srv/www/cod/logs/cod-calendar.log 2>&1"
+35 /2    /usr/bin/env bash -c "(cd /srv/www/cod/ && source venv/bin/activate && python crontab/import_hostify_reservations.py) >> /srv/www/cod/logs/cod-reservations.log 2>&1"
+15 4   * /usr/bin/env bash -c "(cd /srv/www/cod/ && source venv/bin/activate && python crontab/import_hostify_reviews.py) >> /srv/www/cod/logs/cod-reviews.log 2>&1"
+0 12   * /usr/bin/env bash -c "cd /srv/etl/etl_services && source ../venv/bin/activate && python cbi_xeroinvoice.py"
+multi-threading = 
+from concurrent.futures import ThreadPoolExecutor
+from time import sleep
+import concurrent.futures
+values = [3,4,5,6]
+def cube(x):
+    print(f'Cube of {x}:{x*x*x}')
+    return [x]
+ 
+if __name__ == '__main__':
+    result =[]
+    with ThreadPoolExecutor(max_workers=2) as exe:
+        aa = {exe.submit(cube,i) for i in [1,2,3,4]}
+        # import pdb;pdb.set_trace()
+        # result.append(aa)
+        
+        for future in concurrent.futures.as_completed(aa):
+            # import concurrent.futures
+            result.extend(future.result())
+        # # Maps the method 'cube' with a list of values.
+        # result = exe.map(cube,values)
+     
+    for r in result:
+      print(r)
+
+---------------------------------------------------------------------------
+
+Elastic search :- .yml file
+
+approximaletly_search = search_fields ={'name': {'fuzziness': 'AUTO'},}
+https://stackoverflow.com/questions/71492404/elasticsearch-showing-received-plaintext-http-traffic-on-an-https-channel-in-con
+
+what is python :- Python is a high-level, interpreted programming language that emphasizes code readability and simplicity. It is designed to be easy to learn and understand, making it suitable for both beginners and experienced developers.Python has a clear and expressive syntax that uses indentation and whitespace to structure code blocks, rather than relying on explicit braces or delimiters. 
+
+what is decorator - In Python, a decorator is a design pattern that allows you to modify the functionality of a function by wrapping it in another function.
+
+The outer function is called the decorator, which takes the original function as an argument and returns a modified version of it.
+
+What is generator - A generator-function is defined like a normal function, but whenever it needs to generate a value, it does so with the yield keyword rather than return. If the body of a def contains yield, the function automatically becomes a generator function.
+
+Sorting in : Python's default sort uses Tim Sort, which is a combination of both merge sort and insertion sort.
+             Bubble Sort, Merge Sort, Insertion Sort, Shell Sort, Selection Sort
+
+what is oops - In Python, object-oriented Programming (OOPs) is a programming paradigm that uses objects and classes in programming. It aims to implement real-world entities like inheritance, polymorphisms, encapsulation, etc. in the programming.
+
+Abstract Classes in Python - An abstract class can be considered as a blueprint for other classes. It allows you to create a set of methods that must be created within any child classes built from the abstract class. A class which contains one or more abstract methods is called an abstract class. An abstract method is a method that has a declaration but does not have an implementation. While we are designing large functional units we use an abstract class. When we want to provide a common interface for different implementations of a component, we use an abstract class. 
+
+Encapsulation in python - Encapsulation is one of the fundamental concepts in object-oriented programming (OOP). It describes the idea of wrapping data and the methods that work on data within one unit. This puts restrictions on accessing variables and methods directly and can prevent the accidental modification of data
+
+Polymorphism in python - The literal meaning of polymorphism is the condition of occurrence in different forms.
+Polymorphism is a very important concept in programming. It refers to the use of a single type entity (method, operator or object) to represent different types in different scenarios.
+
+Duck typing in python - Duck Typing is a type system used in dynamic languages. For example, Python, Perl, Ruby, PHP, Javascript, etc. where the type or the class of an object is less important than the method it defines. Using Duck Typing, we do not check types at all. Instead, we check for the presence of a given method or attribute
+Method Overloading --- > in Python Using 
+operator Overloading ---> dispatch decoartor               
+
+multiprocessing vs multithreading vs asyncio in python --
+CPU Bound => Multi Processing
+I/O Bound, Fast I/O, Limited Number of Connections => Multi Threading
+I/O Bound, Slow I/O, Many connections => Asyncio
+
+Namespace in python - In Python, we can imagine a namespace as a mapping of every name we have defined to corresponding objects.
+It is used to store the values of variables and other objects in the program, and to associate them with a specific name.
+
+MR0- MRO is a concept used in inheritance. It is the order in which a method is searched for in a classes hierarchy and is especially useful in Python because Python supports multiple inheritance.
+
+suit code - A group of individual statements, which make a single code block are called suites in Python. Compound or complex statements, such as if, while, def, and class require a header line and a suite.
+Header lines begin the statement (with the keyword) and terminate with a colon ( : ) 
+
+what is serailizer - Serializers allow complex data such as querysets and model instances to be converted to native Python datatypes that can then be easily rendered into JSON, XML or other content types.
+
+deep copy -we are going to create deep copy using deepcopy() function present in copy module. The deep copy creates independent copy of original object and all its nested objects.
+shallow copy - A shallow copy creates a new object which stores the reference of the original elements.
+So, a shallow copy doesn't create a copy of nested objects, instead it just copies the reference of nested objects. This means, a copy process does not recurse or create copies of nested objects itself.
+
+walrus - The walrus operator, introduced in Python 3.8, offers a way to accomplish two tasks at once: assigning a value to a variable, and returning that value,
+
+models.py - Model.py is one of the most import concept of django framework. It allows us to completely define the database of our web applications allowing us to : Declare tables and fields of our database. Define all meta-data of our Database. Decide the behaviour of each field.
+
+middlewear - Middleware is a framework of hooks into Django's request/response processing. It's a light, low-level “plugin” system for globally altering Django's input or output. Each middleware component is responsible for doing some specific function.
+
+Manage.py - in Django is a command-line utility that works similar to the django-admin command
+
+API - APIs are mechanisms that enable two software components to communicate with each other using a set of definitions and protocols.
+
+what is git - Git is a distributed version control system that tracks changes in any set of computer files, usually used for coordinating work among programmers collaboratively developing source code during software development. Its goals include speed, data integrity, and support for distributed, non-linear workflows.
+
+what is pR - Pull requests let you tell others about changes you've pushed to a branch in a repository on GitHub. Once a pull request is opened, you can discuss and review the potential changes with collaborators and add follow-up commits before your changes are merged into the base branch.
+
+What is git rebase? - Rebasing is the process of moving or combining a sequence of commits to a new base commit.
+
+what is http -What is HTTP (Hypertext Transfer Protocol)? The Hypertext Transfer Protocol is an application protocol for distributed, collaborative, hypermedia information systems that allows users to communicate data on the World Wide Web.
+
+MVT - Django is based on MVT (Model-View-Template) architecture. MVT is a software design pattern for developing a web application. 
+
+MVT Structure has the following three parts – 
+
+Model: The model is going to act as the interface of your data. It is responsible for maintaining data. It is the logical data structure behind the entire application and is represented by a database (generally relational databases such as MySql, Postgres). To check more, visit – Django Models 
+
+View: The View is the user interface — what you see in your browser when you render a website. It is represented by HTML/CSS/Javascript and Jinja files. To check more, visit – Django Views. 
+
+Template: A template consists of static parts of the desired HTML output as well as some special syntax describing how dynamic content will be inserted. To check more, visit – Django
+
+Garbage-collector - During the garbage collection process, the collector scans different parts of the heap, looking for objects that are no longer in use. If an object no longer has any references to it from elsewhere in the application, the collector removes the object, freeing up memory in the heap.
+
+what is session - Sessions are the mechanism used by Django (and most of the Internet) for keeping track of the "state" between the site and a particular browser. Sessions allow you to store arbitrary data per browser, and have this data available to the site whenever the browser connects.
+
+Enumerate - Enumerate is a built-in function in python that allows you to keep track of the number of iterations (loops) in a loop. This enumerate object contains a count (from the start, which always defaults to 0) and a value obtained from iterating over the iterable object
+
+what is django:-Django is a Python-based web framework that allows you to quickly create efficient web applications. It is also called batteries included framework because Django provides built-in features for everything including Django Admin Interface, default database – SQLlite3, etc. When you’re building a website, you always need a similar set of components: a way to handle user authentication (signing up, signing in, signing out), a management panel for your website, forms, a way to upload files, etc. Django gives you ready-made components to use and that too for rapid development.
+
+docker-compose up: is used to create, start, and attach containers for services defined in the Compose file, and it builds images if needed.
+
+docker-compose build: is used to build or rebuild images for services without starting containers.
+
+docker-compose start: is used to start containers that were previously created but have been stopped.
+
+Docker : Docker is a software platform that allows you to build, test, and deploy applications quickly. 
+         Docker packages software into standardized units called containers that have everything the software 
+         needs to run including libraries, system tools, code, and runtime.
+
+class:class A:
+    def test(self):
+        print("A")
+class B(A):
+    def test(self):
+        print("B")
+class C(B):
+    def test(self):
+        super(B, self).test()
+        super().test()
+        print("C")
+
+a = C()
+a.test()
+
+
+
+
+
+#helpful for model work like django table
+https://tortoise.github.io/models.html#improving-relational-type-hinting
+
+
+
+
+many to many relation 
+https://www.youtube.com/watch?v=3IDiEC0ZwPg
+
+
+
+For makemigration need to call -   alembic revision --autogenerate
+For migrate need to call - alembic upgrade head
+video refrence - https://www.youtube.com/watch?v=tQ3pmkN6FnU
+
+
+For jwt in fastAPI
+https://indominusbyte.github.io/fastapi-jwt-auth/usage/refresh/
+
+
+For nested model 
+https://fastapi.tiangolo.com/tutorial/body-nested-models/
